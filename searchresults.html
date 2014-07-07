@@ -1,0 +1,22 @@
+<div id="searchresultcontainer" ng-init="init()">
+
+    <div class="resultlistpane itemcount">
+        <li class="large_callout">{{searchResultsObj.totalItems}}</li>
+        <li class="small_callout">Items Found</li>
+    </div>
+
+        <div class="resultlistpane">
+            <bookcardblank></bookcardblank>
+            <div ng-repeat="searchResult in searchResultsObj.items">
+                <bookcard bookthumbnail="searchResult.volumeInfo.imageLinks.thumbnail"
+                          booktitle="searchResult.volumeInfo.title"
+                          bookdesc="searchResult.volumeInfo.description"
+                          ng-click="true">
+                </bookcard>
+            </div>
+        </div>
+
+    <!--
+    <div class="resultcontentpane">Content Page</div>
+    -->
+</div>
