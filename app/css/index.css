@@ -66,19 +66,18 @@ body {
 .resultlistpane.itemcount {
     font-size: 20px;
     text-align: center;
-    padding-top: 10px;
-    height: 196px;
+    height: 80px;
     position: absolute;
 }
 
 .resultlistpane.itemcount li.large_callout {
     list-style: none;
-    font-size: 100px;
+    font-size: 35px;
 }
 
 .resultlistpane.itemcount li.small_callout {
     list-style: none;
-    font-size: 25px;
+    font-size: 13px;
 }
 
 .resultcontentpane {
@@ -94,7 +93,7 @@ body {
 }
 
 .bookcardblank {
-    height: 193px;
+    height: 80px;
     width: 99%;
     text-align: center;
     background-color: #333;

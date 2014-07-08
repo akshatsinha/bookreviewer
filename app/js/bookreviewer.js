@@ -36,7 +36,6 @@ app.factory('BookReviewerSvc', function($q) {
     };
 });
 
-
 app.controller('BookSearchCtrl', function($scope, $http, $location, BookReviewerSvc) {
     $scope.searchedText = '';
     $scope.totalItems = 0;
@@ -47,7 +46,7 @@ app.controller('BookSearchCtrl', function($scope, $http, $location, BookReviewer
             return false;
         }
         console.log('Searching for: ' + $scope.searchedText);
-        urlForTitleSearch = 'https://www.googleapis.com/books/v1/volumes?q=' + $scope.searchedText + '&key=' + googleAppKey + '&callback=JSON_CALLBACK';
+        urlForTitleSearch = 'https://www.googleapis.com/books/v1/volumes?q=' + $scope.searchedText + '&key=' + googleAppKey + '&callback=JSON_CALLBACK&maxResults=20';
         console.log('making call' + urlForTitleSearch);
         $http.jsonp(urlForTitleSearch)
             .success(function(searchResults) {
@@ -60,7 +59,6 @@ app.controller('BookSearchCtrl', function($scope, $http, $location, BookReviewer
             });
     };
 });
-
 
 app.controller('BookListDisplayController', function($scope, $http, BookReviewerSvc) {
 
