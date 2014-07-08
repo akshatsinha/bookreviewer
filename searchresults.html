@@ -1,26 +1,28 @@
 <div id="searchresultcontainer" ng-init="init()">
 
+    <!-- LEFT BOOKCARD PANE -->
     <div class="resultlistpane itemcount">
-        <!--
-        <li class="large_callout">{{searchResultsObj.totalItems}}</li>
-        <li class="small_callout">Items Found</li>
-        -->
         <li class="large_callout">Top 20 Results</li>
         <li class="small_callout">&darr;</li>
     </div>
 
-        <div class="resultlistpane">
-            <bookcardblank></bookcardblank>
-            <div ng-repeat="searchResult in searchResultsObj.items">
-                <bookcard bookthumbnail="searchResult.volumeInfo.imageLinks.thumbnail"
-                          booktitle="searchResult.volumeInfo.title"
-                          bookdesc="searchResult.volumeInfo.description"
-                          ng-click="true">
-                </bookcard>
-            </div>
+    <div class="resultlistpane">
+        <bookcardblank></bookcardblank>
+        <div ng-repeat="searchResult in searchResultsObj.items">
+            <bookcard bookthumbnail="searchResult.volumeInfo.imageLinks.thumbnail"
+                      booktitle="searchResult.volumeInfo.title"
+                      bookdesc="searchResult.volumeInfo.description"
+                      ng-click="true">
+            </bookcard>
         </div>
+    </div>
 
-    <!--
-    <div class="resultcontentpane">Content Page</div>
-    -->
+    <!-- RIGHT BOOK RESULT PANE -->
+    <div class="resultcontentpane">
+        <div class="header">
+            <div class="header_content_label">Search Term</div>
+            <div class="header_content_term">{{search_term}}</div>
+        </div>
+    </div>
+
 </div>

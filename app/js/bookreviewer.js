@@ -18,6 +18,7 @@ app.config(function($routeProvider) {
 
 app.factory('BookReviewerSvc', function($q) {
     var searchResultObject = null;
+    var searchQuery = null;
 
     var addSearchResultObject = function(newObj) {
         var deferred = $q.defer();
@@ -30,9 +31,19 @@ app.factory('BookReviewerSvc', function($q) {
         return searchResultObject;
     }
 
+    var setSearchQuery = function(newObj) {
+        searchQuery = newObj;
+    }
+
+    var getSearchQuery = function() {
+        return searchQuery;
+    }
+
     return {
         addSearchResultObject: addSearchResultObject,
-        getSearchResultObject: getSearchResultObject
+        getSearchResultObject: getSearchResultObject,
+        setSearchQuery: setSearchQuery,
+        getSearchQuery: getSearchQuery
     };
 });
 
@@ -45,6 +56,7 @@ app.controller('BookSearchCtrl', function($scope, $http, $location, BookReviewer
             console.log('empty string');
             return false;
         }
+        BookReviewerSvc.setSearchQuery($scope.searchedText);
         console.log('Searching for: ' + $scope.searchedText);
         urlForTitleSearch = 'https://www.googleapis.com/books/v1/volumes?q=' + $scope.searchedText + '&key=' + googleAppKey + '&callback=JSON_CALLBACK&maxResults=20';
         console.log('making call' + urlForTitleSearch);
@@ -53,8 +65,9 @@ app.controller('BookSearchCtrl', function($scope, $http, $location, BookReviewer
                 console.log('success');
                 $scope.totalItems = searchResults.totalItems;
                 BookReviewerSvc.addSearchResultObject(searchResults).then(function(response) {
-                    if (response)
+                    if (response) {
                         $location.path( "/searchresults" );
+                    }
                 });
             });
     };
@@ -64,11 +77,12 @@ app.controller('BookListDisplayController', function($scope, $http, BookReviewer
 
     $scope.init = function() {
         $scope.searchResultsObj = BookReviewerSvc.getSearchResultObject();
+        $scope.search_term = BookReviewerSvc.getSearchQuery();
         console.log($scope.searchResultsObj);
     }
 
     $scope.clicked_book = function() {
-        console.log($scope.index);
+        console.log($scope.bookindex);
     }
 });
 
@@ -79,7 +93,7 @@ app.directive('bookcard', function() {
         scope: {
             bookthumbnail: '=',
             booktitle: '=',
-            bookdesc: '='
+            bookdesc: '=',
         },
         templateUrl: 'bookcard.html',
     }
