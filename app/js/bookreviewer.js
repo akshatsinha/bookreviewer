@@ -75,14 +75,24 @@ app.controller('BookSearchCtrl', function($scope, $http, $location, BookReviewer
 
 app.controller('BookListDisplayController', function($scope, $http, BookReviewerSvc) {
 
+    $scope.book_publisher = '';
+    $scope.book_title = '';
+
     $scope.init = function() {
         $scope.searchResultsObj = BookReviewerSvc.getSearchResultObject();
         $scope.search_term = BookReviewerSvc.getSearchQuery();
         console.log($scope.searchResultsObj);
     }
 
-    $scope.clicked_book = function() {
-        console.log($scope.bookindex);
+    $scope.clicked_book = function(index) {
+        $scope.book_title = '';
+        $scope.book_publisher = '';
+        $scope.book_avg_rating = '';
+        console.log(index);
+        console.log($scope.searchResultsObj.items[index]);
+        $scope.book_title = $scope.searchResultsObj.items[index].volumeInfo.title;
+        $scope.book_publisher = $scope.searchResultsObj.items[index].volumeInfo.publisher;
+        $scope.book_avg_rating = $scope.searchResultsObj.items[index].volumeInfo.averageRating;
     }
 });
 

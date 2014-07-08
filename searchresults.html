@@ -12,7 +12,7 @@
             <bookcard bookthumbnail="searchResult.volumeInfo.imageLinks.thumbnail"
                       booktitle="searchResult.volumeInfo.title"
                       bookdesc="searchResult.volumeInfo.description"
-                      ng-click="true">
+                      ng-click="clicked_book($index)">
             </bookcard>
         </div>
     </div>
@@ -22,6 +22,11 @@
         <div class="header">
             <div class="header_content_label">Search Term</div>
             <div class="header_content_term">{{search_term}}</div>
+        </div>
+        <div class="content_pane">
+            Title: {{book_title}}<br>
+            Publisher: {{book_publisher}}<br>
+            Avg. Rating: {{book_avg_rating}}<br>
         </div>
     </div>
 

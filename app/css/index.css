@@ -88,6 +88,7 @@ body {
     width: 99%;
     border: dotted 1px;
     background-color: #333;
+    cursor: pointer;
 }
 
 .bookcardblank {
