@@ -77,6 +77,7 @@ app.controller('BookListDisplayController', function($scope, $http, BookReviewer
 
     $scope.book_publisher = '';
     $scope.book_title = '';
+    $scope.selected_bookcard = false;
 
     $scope.init = function() {
         $scope.searchResultsObj = BookReviewerSvc.getSearchResultObject();
@@ -85,14 +86,28 @@ app.controller('BookListDisplayController', function($scope, $http, BookReviewer
     }
 
     $scope.clicked_book = function(index) {
+        $scope.selected_bookcard = true;
         $scope.book_title = '';
         $scope.book_publisher = '';
         $scope.book_avg_rating = '';
+        $scope.book_description = '';
+        $scope.book_published_date = '';
+        $scope.book_img_link = '';
+        $scope.book_author_list = [];
+        $scope.book_identifier_list = [];
+        $scope.book_category_list = [];
         console.log(index);
         console.log($scope.searchResultsObj.items[index]);
         $scope.book_title = $scope.searchResultsObj.items[index].volumeInfo.title;
         $scope.book_publisher = $scope.searchResultsObj.items[index].volumeInfo.publisher;
         $scope.book_avg_rating = $scope.searchResultsObj.items[index].volumeInfo.averageRating;
+        $scope.book_description = $scope.searchResultsObj.items[index].volumeInfo.description;
+        $scope.book_published_date = $scope.searchResultsObj.items[index].volumeInfo.publishedDate;
+        $scope.book_img_link = $scope.searchResultsObj.items[index].volumeInfo.imageLinks.thumbnail;
+        $scope.book_author_list = $scope.searchResultsObj.items[index].volumeInfo.authors;
+        $scope.book_identifier_list = $scope.searchResultsObj.items[index].volumeInfo.industryIdentifiers;
+        $scope.book_category_list = $scope.searchResultsObj.items[index].volumeInfo.categories;
+
     }
 });
 

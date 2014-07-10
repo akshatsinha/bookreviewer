@@ -24,10 +24,18 @@
             <div class="header_content_term">{{search_term}}</div>
         </div>
         <div class="content_pane">
-            Title: {{book_title}}<br>
-            Publisher: {{book_publisher}}<br>
-            Avg. Rating: {{book_avg_rating}}<br>
+            <div class="tn">
+                <img class="bookdetail_img" src={{book_img_link}}>
+            </div>
+            <div class="bookdetail_text">
+                Title: {{book_title}}<br><br>
+                Publisher: {{book_publisher}}<br><br>
+                Description: {{book_description}}<br><br>
+                Author(s): <span ng-repeat="author in book_author_list"><br>&nbsp;&nbsp;&nbsp;{{author}}<br></span><br>
+                Identifier(s): <span ng-repeat="id in book_identifier_list"><br>&nbsp;&nbsp;&nbsp;Type: {{id.type}}<br>&nbsp;&nbsp;&nbsp;Id: {{id.identifier}}<br></span><br>
+                Categories: <span ng-repeat="category in book_category_list"><br>&nbsp;&nbsp;&nbsp;{{category}}<br></span><br>
+                Avg. Rating: {{book_avg_rating}}<br><br>
+            </div>
         </div>
     </div>
-
 </div>
