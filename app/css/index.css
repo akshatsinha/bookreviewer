@@ -203,3 +203,11 @@ body {
     left: 50%;
     position: absolute;
 }
+
+.advert {
+    height: 600px;
+    width: 120px;
+    top: 80px;
+    right: 5px;
+    position: fixed;
+}
