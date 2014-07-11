@@ -37,17 +37,17 @@
                     <span class="bookdetail_fieldvalue">
                         {{book_title}}
                     </span><br><br>
-                <span class="bookdetail_fieldnames">Publisher</span><br>
-                    <span class="bookdetail_fieldvalue">
-                        {{book_publisher}}
+                <span class="bookdetail_fieldnames">Author(s)</span>
+                    <span class="bookdetail_fieldvalue" ng-repeat="author in book_author_list"><br>
+                        {{author}}
                     </span><br><br>
                 <span class="bookdetail_fieldnames">Description</span><br>
                     <div class="bookdetail_fieldvalue">
                         {{book_description}}
-                    </div><br><br>
-                <span class="bookdetail_fieldnames">Author(s)</span>
-                    <span class="bookdetail_fieldvalue" ng-repeat="author in book_author_list"><br>
-                        {{author}}
+                    </div><br>
+                <span class="bookdetail_fieldnames">Publisher</span><br>
+                    <span class="bookdetail_fieldvalue">
+                        {{book_publisher}}
                     </span><br><br>
                 <span class="bookdetail_fieldnames">Identifier(s)</span>
                     <span ng-repeat="id in book_identifier_list"><br>
