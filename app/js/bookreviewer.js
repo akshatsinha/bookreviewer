@@ -1,4 +1,4 @@
-var app = angular.module('BookReviewer', ['ngRoute']);
+var app = angular.module('BookReviewer', ['ngRoute', 'ngSanitize']);
 var googleAppKey = 'AIzaSyCjVcsszxwUZxF-ykzo91VmsB941OvHLwY';
 
 app.config(function($routeProvider) {
@@ -78,7 +78,14 @@ app.controller('BookListDisplayController', function($scope, $q, BookReviewerSvc
     $scope.init = function() {
         $scope.searchResultsObj = BookReviewerSvc.getSearchResultObject();
         $scope.search_term = BookReviewerSvc.getSearchQuery();
-        console.log($scope.searchResultsObj);
+
+        // Chitika Ad JS injection
+        if (window.CHITIKA === undefined) {
+            window.CHITIKA = { 'units' : [] };
+        };
+        var unit = {"calltype":"async[2]","publisher":"akshatsinha","width":120,"height":600,"sid":"Chitika Default"};
+        var placement_id = window.CHITIKA.units.length;
+        window.CHITIKA.units.push(unit);
     }
 
     reset_vars = function() {
