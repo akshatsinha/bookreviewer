@@ -197,3 +197,9 @@ body {
     margin-top: 100px;
     margin-left: 30px;
 }
+
+.h1_tag {
+    margin-left: -135px;
+    left: 50%;
+    position: absolute;
+}
