@@ -20,21 +20,48 @@
     <!-- RIGHT BOOK RESULT PANE -->
     <div class="resultcontentpane">
         <div class="header">
-            <div class="header_content_label">Search Term</div>
-            <div class="header_content_term">{{search_term}}</div>
+            <div class="search_term_display_left">
+                <div class="header_content_label">Search Term</div>
+                <div class="header_content_term">{{search_term}}</div>
+            </div>
         </div>
-        <div class="content_pane">
+        <div class="content_pane_empty" ng_if="!book_title">
+            Click on a title
+        </div>
+        <div class="content_pane" ng-show="book_title">
             <div class="tn">
                 <img class="bookdetail_img" src={{book_img_link}}>
             </div>
             <div class="bookdetail_text">
-                Title: {{book_title}}<br><br>
-                Publisher: {{book_publisher}}<br><br>
-                Description: {{book_description}}<br><br>
-                Author(s): <span ng-repeat="author in book_author_list"><br>&nbsp;&nbsp;&nbsp;{{author}}<br></span><br>
-                Identifier(s): <span ng-repeat="id in book_identifier_list"><br>&nbsp;&nbsp;&nbsp;Type: {{id.type}}<br>&nbsp;&nbsp;&nbsp;Id: {{id.identifier}}<br></span><br>
-                Categories: <span ng-repeat="category in book_category_list"><br>&nbsp;&nbsp;&nbsp;{{category}}<br></span><br>
-                Avg. Rating: {{book_avg_rating}}<br><br>
+                <span class="bookdetail_fieldnames">Title</span><br>
+                    <span class="bookdetail_fieldvalue">
+                        {{book_title}}
+                    </span><br><br>
+                <span class="bookdetail_fieldnames">Publisher</span><br>
+                    <span class="bookdetail_fieldvalue">
+                        {{book_publisher}}
+                    </span><br><br>
+                <span class="bookdetail_fieldnames">Description</span><br>
+                    <div class="bookdetail_fieldvalue">
+                        {{book_description}}
+                    </div><br><br>
+                <span class="bookdetail_fieldnames">Author(s)</span>
+                    <span class="bookdetail_fieldvalue" ng-repeat="author in book_author_list"><br>
+                        {{author}}
+                    </span><br><br>
+                <span class="bookdetail_fieldnames">Identifier(s)</span>
+                    <span ng-repeat="id in book_identifier_list"><br>
+                        <span class="bookdetail_fieldvalue">Type: {{id.type}}</span><br>
+                        <span class="bookdetail_fieldvalue">Id: {{id.identifier}}</span><br>
+                    </span><br>
+                <span class="bookdetail_fieldnames">Categories</span><br>
+                    <span class="bookdetail_fieldvalue" ng-repeat="category in book_category_list">
+                        {{category}}<br>
+                    </span><br>
+                <span class="bookdetail_fieldnames">Avg. Rating</span><br>
+                    <span class="bookdetail_fieldvalue">
+                        {{book_avg_rating}}
+                    </span><br><br>
             </div>
         </div>
     </div>

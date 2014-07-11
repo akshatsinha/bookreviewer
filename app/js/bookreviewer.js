@@ -73,11 +73,7 @@ app.controller('BookSearchCtrl', function($scope, $http, $location, BookReviewer
     };
 });
 
-app.controller('BookListDisplayController', function($scope, $http, BookReviewerSvc) {
-
-    $scope.book_publisher = '';
-    $scope.book_title = '';
-    $scope.selected_bookcard = false;
+app.controller('BookListDisplayController', function($scope, $q, BookReviewerSvc) {
 
     $scope.init = function() {
         $scope.searchResultsObj = BookReviewerSvc.getSearchResultObject();
@@ -85,8 +81,8 @@ app.controller('BookListDisplayController', function($scope, $http, BookReviewer
         console.log($scope.searchResultsObj);
     }
 
-    $scope.clicked_book = function(index) {
-        $scope.selected_bookcard = true;
+    reset_vars = function() {
+        var deferred = $q.defer();
         $scope.book_title = '';
         $scope.book_publisher = '';
         $scope.book_avg_rating = '';
@@ -96,18 +92,26 @@ app.controller('BookListDisplayController', function($scope, $http, BookReviewer
         $scope.book_author_list = [];
         $scope.book_identifier_list = [];
         $scope.book_category_list = [];
-        console.log(index);
-        console.log($scope.searchResultsObj.items[index]);
-        $scope.book_title = $scope.searchResultsObj.items[index].volumeInfo.title;
-        $scope.book_publisher = $scope.searchResultsObj.items[index].volumeInfo.publisher;
-        $scope.book_avg_rating = $scope.searchResultsObj.items[index].volumeInfo.averageRating;
-        $scope.book_description = $scope.searchResultsObj.items[index].volumeInfo.description;
-        $scope.book_published_date = $scope.searchResultsObj.items[index].volumeInfo.publishedDate;
-        $scope.book_img_link = $scope.searchResultsObj.items[index].volumeInfo.imageLinks.thumbnail;
-        $scope.book_author_list = $scope.searchResultsObj.items[index].volumeInfo.authors;
-        $scope.book_identifier_list = $scope.searchResultsObj.items[index].volumeInfo.industryIdentifiers;
-        $scope.book_category_list = $scope.searchResultsObj.items[index].volumeInfo.categories;
+        deferred.resolve(true);
+        return deferred.promise;
+    }
 
+    $scope.clicked_book = function(index) {
+        reset_vars().then(function(response) {
+            if (response) {
+                console.log(index);
+                console.log($scope.searchResultsObj.items[index]);
+                $scope.book_title = $scope.searchResultsObj.items[index].volumeInfo.title;
+                $scope.book_publisher = $scope.searchResultsObj.items[index].volumeInfo.publisher;
+                $scope.book_avg_rating = $scope.searchResultsObj.items[index].volumeInfo.averageRating;
+                $scope.book_description = $scope.searchResultsObj.items[index].volumeInfo.description;
+                $scope.book_published_date = $scope.searchResultsObj.items[index].volumeInfo.publishedDate;
+                $scope.book_img_link = $scope.searchResultsObj.items[index].volumeInfo.imageLinks.thumbnail;
+                $scope.book_author_list = $scope.searchResultsObj.items[index].volumeInfo.authors;
+                $scope.book_identifier_list = $scope.searchResultsObj.items[index].volumeInfo.industryIdentifiers;
+                $scope.book_category_list = $scope.searchResultsObj.items[index].volumeInfo.categories;
+            }
+        });
     }
 });
 
@@ -121,6 +125,11 @@ app.directive('bookcard', function() {
             bookdesc: '=',
         },
         templateUrl: 'bookcard.html',
+        // link: function(scope, elem, attrs) {
+        //     elem.bind('click', function() {
+        //         elem.css('border','2px solid yellow');
+        //     });
+        // }
     }
 });
 
