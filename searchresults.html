@@ -24,6 +24,12 @@
                 <div class="header_content_label">Search Term</div>
                 <div class="header_content_term">{{search_term}}</div>
             </div>
+            <div class="search_again_textbox_div">
+                <form name="search_again">
+                    <input class="search_again_textbox" type="text" value="" placeholder="search new term" ng-model="searchedText"/>
+                    <button type="submit" class="search_again_img" ng-click="searchAgainBook()" ng-submit="searchAgainBook()"><img src="app/img/search_again_icon.png" width="40" height="40" alt="submit"></button>
+                </form>
+            </div>
         </div>
         <div class="content_pane_empty" ng_if="!book_title">
             Click on a title
@@ -68,6 +74,6 @@
 
     <!-- ADVERTISEMENT -->
     <div id="chitikaAdBlock-0" class="advert"></div>
-    <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+    <script type="text/javascript" src="http://cdn.chitika.net/getads.js" async></script>
 
 </div>

@@ -62,7 +62,6 @@ app.controller('BookSearchCtrl', function($scope, $http, $location, BookReviewer
         console.log('making call' + urlForTitleSearch);
         $http.jsonp(urlForTitleSearch)
             .success(function(searchResults) {
-                console.log('success');
                 $scope.totalItems = searchResults.totalItems;
                 BookReviewerSvc.addSearchResultObject(searchResults).then(function(response) {
                     if (response) {
@@ -73,7 +72,7 @@ app.controller('BookSearchCtrl', function($scope, $http, $location, BookReviewer
     };
 });
 
-app.controller('BookListDisplayController', function($scope, $q, BookReviewerSvc) {
+app.controller('BookListDisplayController', function($scope, $q, $http, $location, $anchorScroll, BookReviewerSvc) {
 
     $scope.init = function() {
         $scope.searchResultsObj = BookReviewerSvc.getSearchResultObject();
@@ -86,6 +85,29 @@ app.controller('BookListDisplayController', function($scope, $q, BookReviewerSvc
         var unit = {"calltype":"async[2]","publisher":"akshatsinha","width":120,"height":600,"sid":"Chitika Default"};
         var placement_id = window.CHITIKA.units.length;
         window.CHITIKA.units.push(unit);
+        $scope.clicked_book(0);
+        $location.hash('bookcard_blank');
+        $anchorScroll();
+    }
+
+    $scope.searchAgainBook = function() {
+        if ($scope.searchedText == '') {
+            console.log('empty string');
+            return false;
+        }
+        BookReviewerSvc.setSearchQuery($scope.searchedText);
+        console.log('Searching for: ' + $scope.searchedText);
+        urlForTitleSearch = 'https://www.googleapis.com/books/v1/volumes?q=' + $scope.searchedText + '&key=' + googleAppKey + '&callback=JSON_CALLBACK&maxResults=20';
+        console.log('making call' + urlForTitleSearch);
+        $http.jsonp(urlForTitleSearch)
+            .success(function(searchResults) {
+                $scope.totalItems = searchResults.totalItems;
+                BookReviewerSvc.addSearchResultObject(searchResults).then(function(response) {
+                    if (response) {
+                        $scope.init();
+                    }
+                });
+            });
     }
 
     reset_vars = function() {
@@ -106,8 +128,8 @@ app.controller('BookListDisplayController', function($scope, $q, BookReviewerSvc
     $scope.clicked_book = function(index) {
         reset_vars().then(function(response) {
             if (response) {
-                console.log(index);
-                console.log($scope.searchResultsObj.items[index]);
+                //console.log(index);
+                //console.log($scope.searchResultsObj.items[index]);
                 $scope.book_title = $scope.searchResultsObj.items[index].volumeInfo.title;
                 $scope.book_publisher = $scope.searchResultsObj.items[index].volumeInfo.publisher;
                 $scope.book_avg_rating = $scope.searchResultsObj.items[index].volumeInfo.averageRating;
