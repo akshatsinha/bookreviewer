@@ -142,6 +142,8 @@ body {
 
 .resultcontentpane {
     margin-left:  393px;
+    overflow-y: scroll;
+    height: 100%;
 }
 
 .resultcontentpane .header {
@@ -182,7 +184,7 @@ body {
     margin-top: 20px;
     margin-left: 20px;
     display: inline-block;
-    width: 50%;
+    width: 450px;
 }
 
 .bookdetail_fieldvalue {
